@@ -1,0 +1,8 @@
+flask
+flask_sqlalchemy
+flask_migrate
+pandas
+numpy
+joblib
+gunicorn
+psycopg2-binary
