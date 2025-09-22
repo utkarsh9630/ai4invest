@@ -6,3 +6,4 @@ numpy
 joblib
 gunicorn
 psycopg2-binary
+scikit-learn==1.4.2
