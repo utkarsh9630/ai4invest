@@ -1,0 +1,16 @@
+Age Group,Ethnicity,Education Level,Marital Status,Financially dependent children,Annual Household Income,Spending vs Income Past Year,Difficulty covering expenses,Emergency fund to cover 3 Months expenses,Current financial condition satisfaction,Thinking about FC frequency,Account ownership check,Savings/Money market/CD account ownership,Employer-sponsored retirement plan ownership,Homeownership,Regular contribution to a retirement account,"Non-retirement investments in stocks, bonds, mutual funds",Self-efficacy,Self-rated overall financial knowledge,risk_level
+55–64,Hispanic,5,Widowed,2,5,5,8,1 month,Very dissatisfied,Never,1,1,1,Yes,Yes,Yes,4,7,Low
+45–54,Hispanic,6,Single,6,7,Spend > Income,6,None,Somewhat dissatisfied,Never,1,1,1,Yes,Yes,Yes,4,4,Low
+35–44,Hispanic,Postgraduate Degree,Single,5,6,5,10,2 months,Neutral,Yearly,1,1,1,2,Yes,Yes,6,7,Low
+18–24,Hispanic,6,Single,5,3,5,8,None,Neutral,Never,1,1,1,2,Yes,Yes,5,5,Low
+45–54,Hispanic,6,Married,1,5,6,Not at all difficult,1 month,Very dissatisfied,Never,1,1,1,Yes,Yes,Yes,4,5,Low
+35–44,Non-Hispanic White,Some College,Married,1,4,6,6,2 months,Somewhat dissatisfied,98,1,1,2,2,Yes,2,6,7,Medium
+25–34,Non-Hispanic White,6,Married,1,6,5,6,2 months,Neutral,Never,1,1,1,Yes,Yes,Yes,7,5,Medium
+65+,Hispanic,6,Married,5,6,5,Very difficult,1 month,Somewhat dissatisfied,Never,1,1,1,Yes,Yes,2,7,6,Medium
+65+,Hispanic,7,Married,5,6,5,Somewhat difficult,None,Neutral,Never,1,1,1,Yes,98,2,6,4,Medium
+65+,Hispanic,5,Widowed,5,4,6,7,1 month,Somewhat dissatisfied,Yearly,1,1,1,Yes,2,2,7,5,Medium
+55–64,Hispanic,6,Married,5,7,4,4,None,Neutral,Never,1,1,1,Yes,Yes,Yes,7,6,High
+25–34,Non-Hispanic White,6,Married,6,6,4,6,2 months,Neutral,Never,1,1,1,Yes,Yes,Yes,4,6,High
+45–54,Hispanic,6,Married,3,7,98,10,2 months,Neutral,Never,1,1,1,Yes,Yes,Yes,6,6,High
+65+,Hispanic,Postgraduate Degree,Widowed,6,5,Spend > Income,Very difficult,None,Neutral,Never,1,1,1,2,2,2,7,5,High
+65+,Hispanic,Some College,Married,5,5,5,Not at all difficult,None,Neutral,Never,1,1,1,Yes,2,99,7,5,High

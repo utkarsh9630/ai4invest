@@ -1,0 +1,106 @@
+ticker,vol30,mom30,beta60,future_return,risk_label2,pred_return,bucket
+INTC,"Ticker
+INTC    0.052044
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+INTC   -0.164468
+Name: 2025-05-05 00:00:00, dtype: float64",1.4252894938770788,"Ticker
+INTC    0.038422
+Name: 2025-05-05 00:00:00, dtype: float64",1,-0.006528553485596468,1
+LRCX,"Ticker
+LRCX    0.051756
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+LRCX   -0.025448
+Name: 2025-05-05 00:00:00, dtype: float64",1.7494547072350264,"Ticker
+LRCX    0.032638
+Name: 2025-05-05 00:00:00, dtype: float64",1,-0.03583284688409556,1
+DVN,"Ticker
+DVN    0.052735
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+DVN   -0.152974
+Name: 2025-05-05 00:00:00, dtype: float64",1.5676775465057797,"Ticker
+DVN    0.002244
+Name: 2025-05-05 00:00:00, dtype: float64",1,-0.04841158137895086,1
+SBUX,"Ticker
+SBUX    0.038048
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+SBUX   -0.158751
+Name: 2025-05-05 00:00:00, dtype: float64",1.109382730032244,"Ticker
+SBUX   -0.066691
+Name: 2025-05-05 00:00:00, dtype: float64",1,-0.07703613217290074,1
+SMCI,"Ticker
+SMCI    0.06135
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+SMCI   -0.236773
+Name: 2025-05-05 00:00:00, dtype: float64",1.8580669153761364,"Ticker
+SMCI    0.01836
+Name: 2025-05-05 00:00:00, dtype: float64",1,-0.08291251278243074,1
+CVS,"Ticker
+CVS    0.022114
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+CVS    0.011063
+Name: 2025-05-05 00:00:00, dtype: float64",0.4147303398509783,"Ticker
+CVS    0.54764
+Name: 2025-05-05 00:00:00, dtype: float64",0,0.3749258829374275,0
+NEM,"Ticker
+NEM    0.032329
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+NEM    0.119932
+Name: 2025-05-05 00:00:00, dtype: float64",0.6016318170616315,"Ticker
+NEM    0.393806
+Name: 2025-05-05 00:00:00, dtype: float64",0,0.2380260281432561,0
+EXC,"Ticker
+EXC    0.016374
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+EXC    0.050228
+Name: 2025-05-05 00:00:00, dtype: float64",0.028791717013737072,"Ticker
+EXC    0.254133
+Name: 2025-05-05 00:00:00, dtype: float64",0,0.2163048314428625,0
+T,"Ticker
+T    0.018635
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+T    0.028941
+Name: 2025-05-05 00:00:00, dtype: float64",0.23867222482400463,"Ticker
+T    0.237577
+Name: 2025-05-05 00:00:00, dtype: float64",0,0.1779190563059968,0
+MDLZ,"Ticker
+MDLZ    0.016881
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+MDLZ    0.058345
+Name: 2025-05-05 00:00:00, dtype: float64",0.08883749422657852,"Ticker
+MDLZ    0.158729
+Name: 2025-05-05 00:00:00, dtype: float64",0,0.16493084018037532,0
+PLTR,"Ticker
+PLTR    0.056085
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+PLTR    0.360708
+Name: 2025-05-05 00:00:00, dtype: float64",1.943605883436803,"Ticker
+PLTR    0.536561
+Name: 2025-05-05 00:00:00, dtype: float64",2,0.34614460686537835,2
+UBER,"Ticker
+UBER    0.034528
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+UBER    0.12645
+Name: 2025-05-05 00:00:00, dtype: float64",1.1453306690608933,"Ticker
+UBER    0.406718
+Name: 2025-05-05 00:00:00, dtype: float64",2,0.2719359248184894,2
+APH,"Ticker
+APH    0.036848
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+APH    0.203754
+Name: 2025-05-05 00:00:00, dtype: float64",1.1879334607844731,"Ticker
+APH    0.138817
+Name: 2025-05-05 00:00:00, dtype: float64",2,0.14627365886284666,2
+META,"Ticker
+META    0.042827
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+META    0.005065
+Name: 2025-05-05 00:00:00, dtype: float64",1.4002788834442377,"Ticker
+META    0.024867
+Name: 2025-05-05 00:00:00, dtype: float64",2,0.035171267317631844,2
+BA,"Ticker
+BA    0.04357
+Name: 2025-05-05 00:00:00, dtype: float64","Ticker
+BA    0.046881
+Name: 2025-05-05 00:00:00, dtype: float64",1.3506984454393918,"Ticker
+BA    0.051367
+Name: 2025-05-05 00:00:00, dtype: float64",2,-0.005597341912678165,2

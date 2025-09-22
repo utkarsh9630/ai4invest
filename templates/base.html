@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI4Invest</title>
+
+    <!-- Tailwind & Inter font -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Your overrides -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='globals.css') }}"
+    />
+  </head>
+
+  <body
+    class="
+      flex flex-col min-h-screen
+      bg-gradient-to-br from-green-400 via-green-500 to-green-600
+      {% if request.endpoint in ['login','register'] %}login-page{% endif %}
+    "
+  >
+    <!-- NAVIGATION BAR -->
+    <nav class="sticky top-0 bg-green-800 shadow-md rounded-b-lg">
+      <div
+        class="
+          max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+          h-16 flex items-center justify-between
+          font-inter font-semibold uppercase tracking-wide
+        "
+      >
+        <a
+          href="{{ url_for('home') }}"
+          class="flex items-center space-x-2 text-white hover:opacity-90"
+        >
+          <img
+            src="{{ url_for('static', filename='images/magnify_data_logo.png') }}"
+            alt="AI4Invest Logo"
+            class="h-8"
+          />
+          <span class="text-xl">AI4Invest</span>
+        </a>
+
+        <div class="space-x-6 flex items-center">
+          {% if session.get('user_id') %}
+            <span class="hidden sm:inline text-white">Hello, {{ session.username|upper }}</span>
+            <a href="{{ url_for('home') }}"      class="text-white hover:underline">Profile</a>
+            <a href="{{ url_for('dashboard') }}" class="text-white hover:underline">Dashboard</a>
+            <a href="{{ url_for('profiles') }}"  class="text-white hover:underline">My Profiles</a>
+            <button
+              id="logout"
+              class="text-white hover:underline bg-transparent"
+            >
+              Logout
+            </button>
+          {% else %}
+            <a href="{{ url_for('login') }}"    class="text-white hover:underline">Log In</a>
+            <a href="{{ url_for('register') }}" class="text-white hover:underline">Register</a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <!-- PAGE CONTENT -->
+    <main class="flex-1">
+      <div class="content-panel">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-4">
+      © AI4Invest™ 2025
+    </footer>
+
+    <script>
+      document.getElementById("logout")?.addEventListener("click", () => {
+        fetch("{{ url_for('logout') }}").then(() => {
+          window.location.href = "{{ url_for('login') }}";
+        });
+      });
+    </script>
+  </body>
+</html>

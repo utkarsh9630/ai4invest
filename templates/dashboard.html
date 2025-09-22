@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="max-w-2xl mx-auto py-8">
+    <h1 class="text-3xl font-bold mb-6">
+      Top 5 Picks for “{{ bucket }}” Risk Bucket
+    </h1>
+
+    <table class="w-full text-left border-collapse mb-6">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="px-4 py-2">Ticker</th>
+          <th class="px-4 py-2">Predicted 90-day Return (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in picks %}
+        <tr class="border-b">
+          <td class="px-4 py-2">{{ r.ticker }}</td>
+          <td class="px-4 py-2">
+            {{ '%.2f' | format(r.pred_return * 100) }}%
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <form method="post" action="{{ url_for('simulate') }}" class="space-y-4">
+      <!-- we pass bucket and the full picks list back to /simulate -->
+      <input type="hidden" name="bucket" value="{{ bucket }}">
+      <input
+        type="hidden"
+        name="picks_blob"
+        value='{{ picks | tojson }}'
+      >
+
+      <div>
+        <label class="block mb-1">Invest Amount ($)</label>
+        <input
+          name="amount"
+          type="number"
+          step="0.01"
+          required
+          class="w-full border rounded px-3 py-2"
+        >
+      </div>
+
+      <div>
+        <label class="block mb-1">Days until Maturity</label>
+        <input
+          name="days"
+          type="number"
+          required
+          class="w-full border rounded px-3 py-2"
+        >
+      </div>
+
+      <button
+        type="submit"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
+      >Simulate Returns</button>
+    </form>
+
+    <div class="mt-6">
+      <a
+        href="{{ url_for('home') }}"
+        class="text-gray-600 hover:text-gray-800"
+      >&larr; New Profile</a>
+    </div>
+  </div>
+{% endblock %}

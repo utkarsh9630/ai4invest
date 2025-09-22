@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 class="text-2xl font-bold mb-6">Financial Risk Profiling</h1>
+  <form method="post" action="{{ url_for('predict') }}" class="space-y-4">
+    <!-- hidden field to carry user’s local time -->
+    <input type="hidden" name="client_time" id="client_time"/>
+
+    <div>
+      <label class="block font-medium">Profile Name</label>
+      <input
+        type="text"
+        name="profile_name"
+        placeholder="e.g. My Retirement Plan"
+        class="w-full border rounded p-2"
+      />
+    </div>
+
+    {% for field, opts in field_options.items() %}
+      <div>
+        <label class="block font-medium">{{ field }}</label>
+        <select name="{{ field }}" required class="w-full border rounded p-2">
+          <option value="" disabled selected>— Select {{ field|lower }} —</option>
+          {% for val, lbl in opts %}
+            <option value="{{ val }}">{{ lbl }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    {% endfor %}
+
+    {% for field in numeric_fields %}
+      <div>
+        <label class="block font-medium">{{ field }}</label>
+        <input
+          type="number"
+          name="{{ field }}"
+          placeholder="enter a number"
+          class="w-full border rounded p-2"
+          required
+          min="0"
+          step="1"
+        />
+      </div>
+    {% endfor %}
+
+    <button
+      type="submit"
+      class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
+    >Submit</button>
+  </form>
+
+  <script>
+    // fill the hidden client_time before submit
+    document.addEventListener("DOMContentLoaded", () => {
+      const now = new Date();
+      const pad = n => String(n).padStart(2, "0");
+      const ts = 
+        now.getFullYear() + "-" +
+        pad(now.getMonth()+1) + "-" +
+        pad(now.getDate()) + " " +
+        pad(now.getHours()) + ":" +
+        pad(now.getMinutes());
+      document.getElementById("client_time").value = ts;
+    });
+  </script>
+{% endblock %}

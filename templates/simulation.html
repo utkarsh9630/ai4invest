@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="max-w-2xl mx-auto py-8">
+    <h1 class="text-3xl font-bold mb-6">
+      Simulation Results for “{{ bucket }}” Risk Bucket
+    </h1>
+
+    <p class="mb-4">
+      Invested ${{ '%.2f'|format(amount) }} over {{ days }} days
+      across {{ results|length }} picks.
+    </p>
+
+    <table class="w-full text-left border-collapse mb-6">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="px-4 py-2">Ticker</th>
+          <th class="px-4 py-2">Invested ($)</th>
+          <th class="px-4 py-2">Return (%)</th>
+          <th class="px-4 py-2">Gain ($)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in results %}
+        <tr class="border-b">
+          <td class="px-4 py-2">{{ r.ticker }}</td>
+          <td class="px-4 py-2">${{ '%.2f' | format(r.invested) }}</td>
+          <td class="px-4 py-2">{{ '%.2f' | format(r.return_pct) }}%</td>
+          <td class="px-4 py-2">${{ '%.2f' | format(r.gain_usd) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <a
+      href="{{ url_for('dashboard') }}"
+      class="inline-block bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+    >&larr; Back to Dashboard</a>
+  </div>
+{% endblock %}

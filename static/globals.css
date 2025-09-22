@@ -1,0 +1,118 @@
+/* ─────────────────────────────────────────── */
+/* Base page styles                           */
+/* ─────────────────────────────────────────── */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #fff; /* fallback for non‐Tailwind */
+}
+
+/* ─────────────────────────────────────────── */
+/* NAVBAR: force all its text & links white   */
+/* ─────────────────────────────────────────── */
+nav,
+nav a,
+nav span,
+nav button {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+/* ─────────────────────────────────────────── */
+/* Main content panels for most pages        */
+/* ─────────────────────────────────────────── */
+.content-panel {
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 2rem;
+  max-width: 75rem;
+  margin: 1.5rem auto;
+}
+
+/* ─────────────────────────────────────────── */
+/* FOOTER                                     */
+/* ─────────────────────────────────────────── */
+footer {
+  text-align: center;
+  color: #000 !important;
+  padding: 1rem 0;
+}
+
+/* ─────────────────────────────────────────── */
+/* Transitions                                */
+/* ─────────────────────────────────────────── */
+a, button {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ─────────────────────────────────────────── */
+/* Form selects                               */
+/* ─────────────────────────────────────────── */
+select:invalid { color: #9CA3AF; }
+select:valid   { color: #111827; }
+
+/* ─────────────────────────────────────────── */
+/* LOGIN & REGISTER: CORE LAYOUT & STYLING    */
+/* ─────────────────────────────────────────── */
+
+/* Center the panel in the viewport */
+body.login-page main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+}
+
+/* Remove the white “outer” wrapper entirely */
+body.login-page main > .content-panel {
+  background: transparent !important;
+  box-shadow: none         !important;
+  margin: 0               !important;
+  padding: 0              !important;
+  border: none            !important;
+}
+
+/* Style the “inner card” */
+body.login-page .content-panel {
+  max-width: 28rem;
+  width: 90%;
+  text-align: center;
+  background-color: rgba(255,255,255,0.2);
+  border: 2px solid rgba(0,0,0,0.15);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 2rem;
+}
+
+/* Tint the form inputs */
+body.login-page input,
+body.login-page select {
+  background-color: rgba(255,255,255,0.5);
+  text-align: center;
+}
+
+/* Shrink the submit button */
+body.login-page button {
+  display: inline-block;
+  width: auto !important;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: #000;
+  font-weight: bold;
+  border: 2px solid rgba(0,0,0,0.5);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+/* Underline & darken the Log In / Register links */
+body.login-page a {
+  color: #000 !important;
+  text-decoration: underline;
+}

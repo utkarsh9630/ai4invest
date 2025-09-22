@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Financial Risk Profiling</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Financial Risk Profiling</h1>
+  <form action="{{ url_for('predict') }}" method="post">
+    <!-- Age Group -->
+    <label>Age Group:</label>
+    <select name="Age Group" required>
+      <option value="">— Select —</option>
+      <option value="1">18–24</option>
+      <option value="2">25–34</option>
+      <option value="3">35–44</option>
+      <option value="4">45–54</option>
+      <option value="5">55–64</option>
+      <option value="6">65+</option>
+    </select><br/>
+
+    <!-- Ethnicity -->
+    <label>Ethnicity:</label>
+    <select name="Ethnicity" required>
+      <option value="">— Select —</option>
+      <option value="1">Hispanic</option>
+      <option value="2">Non-Hispanic White</option>
+      <option value="3">Non-Hispanic Black</option>
+      <option value="4">Non-Hispanic Asian</option>
+      <option value="5">Other</option>
+    </select><br/>
+
+    <!-- Education Level -->
+    <label>Education Level:</label>
+    <select name="Education Level" required>
+      <option value="">— Select —</option>
+      <option value="1">High School or Less</option>
+      <option value="2">Some College</option>
+      <option value="3">Bachelor’s Degree</option>
+      <option value="4">Postgraduate Degree</option>
+    </select><br/>
+
+    <!-- Marital Status -->
+    <label>Marital Status:</label>
+    <select name="Marital Status" required>
+      <option value="">— Select —</option>
+      <option value="1">Married</option>
+      <option value="2">Single</option>
+      <option value="3">Divorced</option>
+      <option value="4">Widowed</option>
+    </select><br/>
+
+    <!-- Numeric inputs -->
+    <label>Financially dependent children:</label>
+    <input type="number" name="Financially dependent children" min="0" required><br/>
+
+    <label>Annual Household Income:</label>
+    <input type="number" name="Annual Household Income" min="1" required><br/>
+
+    <!-- Spending vs Income -->
+    <label>Spending vs Income Past Year:</label>
+    <select name="Spending vs Income Past Year" required>
+      <option value="">— Select —</option>
+      <option value="1">Spend &lt; Income</option>
+      <option value="2">Spend = Income</option>
+      <option value="3">Spend &gt; Income</option>
+    </select><br/>
+
+    <!-- Difficulty covering expenses -->
+    <label>Difficulty covering expenses:</label>
+    <select name="Difficulty covering expenses" required>
+      <option value="">— Select —</option>
+      <option value="1">Not at all difficult</option>
+      <option value="2">Somewhat difficult</option>
+      <option value="3">Very difficult</option>
+    </select><br/>
+
+    <!-- Emergency fund -->
+    <label>Emergency fund to cover 3 Months expenses:</label>
+    <select name="Emergency fund to cover 3 Months expenses" required>
+      <option value="">— Select —</option>
+      <option value="1">None</option>
+      <option value="2">1 month</option>
+      <option value="3">2 months</option>
+      <option value="4">3+ months</option>
+    </select><br/>
+
+    <!-- Satisfaction -->
+    <label>Current financial condition satisfaction:</label>
+    <select name="Current financial condition satisfaction" required>
+      <option value="">— Select —</option>
+      <option value="1">Very dissatisfied</option>
+      <option value="2">Somewhat dissatisfied</option>
+      <option value="3">Neutral</option>
+      <option value="4">Somewhat satisfied</option>
+      <option value="5">Very satisfied</option>
+    </select><br/>
+
+    <!-- Frequency -->
+    <label>Thinking about FC frequency:</label>
+    <select name="Thinking about FC frequency" required>
+      <option value="">— Select —</option>
+      <option value="1">Never</option>
+      <option value="2">Yearly</option>
+      <option value="3">Quarterly</option>
+      <option value="4">Monthly</option>
+    </select><br/>
+
+    <!-- Accounts -->
+    <label>Account ownership check (# of accounts):</label>
+    <input type="number" name="Account ownership check" min="0" required><br/>
+
+    <label>Savings/Money market/CD account ownership (#):</label>
+    <input type="number" name="Savings/Money market/CD account ownership" min="0" required><br/>
+
+    <label>Employer-sponsored retirement plan ownership (#):</label>
+    <input type="number" name="Employer-sponsored retirement plan ownership" min="0" required><br/>
+
+    <!-- Booleans -->
+    <label>Homeownership:</label>
+    <select name="Homeownership" required>
+      <option value="">— Select —</option>
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select><br/>
+
+    <label>Regular contribution to a retirement account:</label>
+    <select name="Regular contribution to a retirement account" required>
+      <option value="">— Select —</option>
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select><br/>
+
+    <label>Non-retirement investments in stocks, bonds, mutual funds:</label>
+    <select name="Non-retirement investments in stocks, bonds, mutual funds" required>
+      <option value="">— Select —</option>
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select><br/>
+
+    <!-- Self‐efficacy & Knowledge -->
+    <label>Self-efficacy (1–5):</label>
+    <select name="Self-efficacy" required>
+      <option value="">— Select —</option>
+      {% for i in range(1,6) %}
+        <option value="{{ i }}">{{ i }}</option>
+      {% endfor %}
+    </select><br/>
+
+    <label>Self-rated overall financial knowledge (1–5):</label>
+    <select name="Self-rated overall financial knowledge" required>
+      <option value="">— Select —</option>
+      {% for i in range(1,6) %}
+        <option value="{{ i }}">{{ i }}</option>
+      {% endfor %}
+    </select><br/>
+
+    <button type="submit">Profile My Risk</button>
+  </form>
+</body>
+</html>

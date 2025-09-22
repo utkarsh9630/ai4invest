@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="text-center space-y-4">
+    <h1 class="text-3xl font-bold mt-8">Your Risk Profile</h1>
+
+    <!-- ONLY this line bounces -->
+    <p class="text-4xl font-extrabold text-indigo-600 animate-bounce">
+      {{ risk_bucket }}
+    </p>
+
+    <p class="italic">
+      “{{ profile_name }}” saved at <span id="saved-at"></span>
+    </p>
+
+    <!-- Button still pulses -->
+    <a
+      href="{{ url_for('dashboard') }}"
+      class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md font-medium
+             animate-pulse hover:animate-none
+             transition-all duration-500"
+    >
+      View Dashboard
+    </a>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const now = new Date();
+      const pad = n => String(n).padStart(2, "0");
+      const localTimestamp =
+        now.getFullYear() + "-" +
+        pad(now.getMonth() + 1) + "-" +
+        pad(now.getDate()) + " " +
+        pad(now.getHours()) + ":" +
+        pad(now.getMinutes());
+      document.getElementById("saved-at").textContent = localTimestamp;
+    });
+  </script>
+{% endblock %}

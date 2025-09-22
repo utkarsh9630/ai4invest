@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="p-6 bg-white rounded-lg shadow">
+  <h1 class="text-2xl font-bold mb-4">My Saved Profiles</h1>
+
+  {% if profiles %}
+    <table class="w-full table-auto">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="px-4 py-2 text-left">Name</th>
+          <th class="px-4 py-2 text-left">
+            <a
+              href="{{ url_for('profiles',
+                               sort=('asc' if sort=='desc' else 'desc'),
+                               page=pagination.page) }}"
+              class="inline-flex items-center hover:underline"
+            >
+              Saved At {% if sort=='asc' %}&uarr;{% else %}&darr;{% endif %}
+            </a>
+          </th>
+          <th class="px-4 py-2 text-left">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in profiles %}
+          <tr class="border-t">
+            <td class="px-4 py-2 flex items-center">
+              <!-- folder icon -->
+              <svg xmlns="http://www.w3.org/2000/svg"
+                   class="h-5 w-5 text-yellow-500 mr-2"
+                   fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 7a2 2 0 0 1 2-2h3.586...z"/>
+              </svg>
+              <a
+                href="{{ url_for('load_profile', profile_id=p.id) }}"
+                class="text-indigo-600 hover:underline"
+              >{{ p.name }}</a>
+            </td>
+            <td class="px-4 py-2">{{ p.created.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td class="px-4 py-2">
+              <form
+                method="post"
+                action="{{ url_for('delete_profile', profile_id=p.id) }}"
+                onsubmit="return confirm('Delete this profile?');"
+              >
+                <button type="submit" class="text-red-600 hover:underline">
+                  Delete
+                </button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- pagination controls -->
+    <div class="mt-6 flex justify-between items-center">
+      {% if pagination.has_prev %}
+        <a
+          href="{{ url_for('profiles', page=pagination.prev_num, sort=sort) }}"
+          class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+        >&laquo; Prev</a>
+      {% else %}
+        <span></span>
+      {% endif %}
+
+      <span class="text-sm text-gray-600">
+        Page {{ pagination.page }} of {{ pagination.pages }}
+      </span>
+
+      {% if pagination.has_next %}
+        <a
+          href="{{ url_for('profiles', page=pagination.next_num, sort=sort) }}"
+          class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+        >Next &raquo;</a>
+      {% else %}
+        <span></span>
+      {% endif %}
+    </div>
+
+  {% else %}
+    <p class="text-gray-700">You have no saved profiles yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
