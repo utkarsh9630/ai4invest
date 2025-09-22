@@ -1,9 +1,12 @@
 flask
 flask_sqlalchemy
 flask_migrate
-pandas
-numpy
-joblib
 gunicorn
 psycopg2-binary
+
+# ML stack (pin stable versions that work together on Python 3.11)
+numpy==1.26.4
+scipy==1.11.4
+pandas==2.2.2
+joblib==1.3.2
 scikit-learn==1.4.2
