@@ -441,6 +441,9 @@ def delete_profile(profile_id):
     flash(f'Profile "{prof.name}" has been deleted.', "success")
     return redirect(url_for("profiles"))
 
-
+with app.app_context():
+    db.create_all()
+    print("Database tables ready!")
+    
 if __name__ == "__main__":
     app.run(debug=True)
