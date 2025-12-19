@@ -56,11 +56,98 @@ class Profile(db.Model):
 
 
 # ─── FIELD OPTIONS ────────────────────────────────────────────────────────────────
+# ─── FIELD OPTIONS ────────────────────────────────────────────────────────────────
 FIELD_OPTIONS = {
-    # ... your existing FIELD_OPTIONS ...
+    "Age Group": [
+        (1, "18–24"),
+        (2, "25–34"),
+        (3, "35–44"),
+        (4, "45–54"),
+        (5, "55–64"),
+        (6, "65+")
+    ],
+    "Ethnicity": [
+        (1, "Hispanic"),
+        (2, "Non-Hispanic White"),
+        (3, "Non-Hispanic Black"),
+        (4, "Non-Hispanic Asian"),
+        (5, "Other")
+    ],
+    "Education Level": [
+        (1, "High School or Less"),
+        (2, "Some College"),
+        (3, "Bachelor's Degree"),
+        (4, "Postgraduate Degree")
+    ],
+    "Marital Status": [
+        (1, "Married"),
+        (2, "Single"),
+        (3, "Divorced"),
+        (4, "Widowed")
+    ],
+    "Spending vs Income Past Year": [
+        (1, "Spend < Income"),
+        (2, "Spend = Income"),
+        (3, "Spend > Income")
+    ],
+    "Difficulty covering expenses": [
+        (1, "Not at all difficult"),
+        (2, "Somewhat difficult"),
+        (3, "Very difficult")
+    ],
+    "Emergency fund to cover 3 Months expenses": [
+        (1, "None"),
+        (2, "1 month"),
+        (3, "2 months"),
+        (4, "3+ months")
+    ],
+    "Current financial condition satisfaction": [
+        (1, "Very dissatisfied"),
+        (2, "Somewhat dissatisfied"),
+        (3, "Neutral"),
+        (4, "Somewhat satisfied"),
+        (5, "Very satisfied")
+    ],
+    "Thinking about FC frequency": [
+        (1, "Never"),
+        (2, "Yearly"),
+        (3, "Quarterly"),
+        (4, "Monthly")
+    ],
+    "Homeownership": [
+        (0, "No"),
+        (1, "Yes")
+    ],
+    "Regular contribution to a retirement account": [
+        (0, "No"),
+        (1, "Yes")
+    ],
+    "Non-retirement investments in stocks, bonds, mutual funds": [
+        (0, "No"),
+        (1, "Yes")
+    ],
+    "Self-efficacy": [
+        (1, "1"),
+        (2, "2"),
+        (3, "3"),
+        (4, "4"),
+        (5, "5")
+    ],
+    "Self-rated overall financial knowledge": [
+        (1, "1"),
+        (2, "2"),
+        (3, "3"),
+        (4, "4"),
+        (5, "5")
+    ]
 }
+
 NUMERIC_FIELDS = [
-    # ... your existing NUMERIC_FIELDS ...
+    "Financially dependent children",
+    "Annual Household Income",
+    "Account ownership check",
+    "Savings/Money market/CD account ownership",
+    "Employer-sponsored retirement plan ownership"
 ]
 
 
@@ -115,15 +202,20 @@ def register():
 @app.route("/login", methods=["GET","POST"])
 def login():
     if request.method == "POST":
-        email = request.form.get("email", "").strip()
-        pw    = request.form.get("password", "")
-        user  = User.query.filter_by(email=email).first()
+        username_or_email = request.form.get("username_or_email", "").strip()
+        pw = request.form.get("password", "")
+        
+        # Try to find user by email first, then by username
+        user = User.query.filter_by(email=username_or_email).first()
+        if not user:
+            user = User.query.filter_by(username=username_or_email).first()
+        
         if user and user.check_password(pw):
             session.clear()
-            session["user_id"]  = user.id
+            session["user_id"] = user.id
             session["username"] = user.username
             return redirect(url_for("home"))
-        flash("Invalid email or password", "danger")
+        flash("Invalid username/email or password", "danger")
     return render_template("login.html")
 
 

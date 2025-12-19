@@ -1,60 +1,152 @@
 {% extends "base.html" %}
-
 {% block content %}
-  <div class="login-center">
-    <div class="content-panel">
-      <h1 class="text-3xl font-bold mb-6">Register</h1>
-      <form method="post" class="space-y-4">
+  <div class="max-w-md mx-auto px-4">
+    <!-- Branding Banner -->
+    <div class="bg-gradient-to-r from-green-700 to-green-900 text-white rounded-lg shadow-xl p-6 mb-6 text-center animate-fade-in">
+      <h2 class="text-2xl font-bold mb-2">💰 Why Retire So Late?</h2>
+      <p class="text-lg">Join us and retire early with smart investments!</p>
+    </div>
+
+    <div class="bg-white bg-opacity-90 rounded-lg shadow-lg p-8">
+      <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Register</h1>
+      
+      <form method="post" class="space-y-4" id="registerForm">
         <div>
-          <label class="block font-medium mb-1">Username</label>
-          <input
-            type="text"
-            name="username"
-            class="w-full border rounded p-2 bg-transparent text-center"
-            placeholder="choose a username"
-            required
+          <label class="block font-medium mb-2 text-gray-700">Username</label>
+          <input 
+            type="text" 
+            name="username" 
+            placeholder="Choose a username" 
+            required 
+            minlength="3"
+            class="w-full border rounded p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
           />
         </div>
 
         <div>
-          <label class="block font-medium mb-1">Email</label>
-          <input
-            type="email"
-            name="email"
-            class="w-full border rounded p-2 bg-transparent text-center"
-            placeholder="you@example.com"
-            required
+          <label class="block font-medium mb-2 text-gray-700">Email</label>
+          <input 
+            type="email" 
+            name="email" 
+            id="email"
+            placeholder="Enter your email address" 
+            required 
+            class="w-full border rounded p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
           />
+          <p class="text-xs text-gray-500 mt-1">Please use a valid email address (Gmail, Yahoo, Outlook, etc.)</p>
         </div>
 
         <div>
-          <label class="block font-medium mb-1">Password</label>
-          <input
-            type="password"
-            name="password"
-            class="w-full border rounded p-2 bg-transparent text-center"
-            placeholder="••••••••"
-            required
-          />
+          <label class="block font-medium mb-2 text-gray-700">Password</label>
+          <div class="relative">
+            <input 
+              type="password" 
+              name="password" 
+              id="password"
+              placeholder="Choose a strong password" 
+              required 
+              minlength="6"
+              class="w-full border rounded p-3 pr-12 focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+            <button 
+              type="button" 
+              id="togglePassword"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+            >
+              <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              <svg id="eyeOffIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+              </svg>
+            </button>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">Minimum 6 characters</p>
         </div>
 
-        <button
-          type="submit"
-          class="inline-block mx-auto
-                 bg-transparent text-black border-2 border-black font-semibold
-                 hover:bg-white hover:text-green-800
-                 transition px-6 py-3 rounded-lg text-lg"
+        <button 
+          type="submit" 
+          class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded transition duration-200"
         >
           Register
         </button>
       </form>
 
-      <p class="mt-4 text-sm text-center">
-        Already have an account?
-        <a href="{{ url_for('login') }}" class="text-black underline">
-          Log in
-        </a>.
+      <p class="mt-6 text-center text-gray-600">
+        Already have an account? 
+        <a href="{{ url_for('login') }}" class="text-green-600 hover:underline font-semibold">Log In</a>
       </p>
     </div>
   </div>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.8s ease-out;
+    }
+  </style>
+
+  <script>
+    // Password visibility toggle
+    const togglePassword = document.getElementById('togglePassword');
+    const password = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+    const eyeOffIcon = document.getElementById('eyeOffIcon');
+
+    togglePassword.addEventListener('click', function() {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      
+      eyeIcon.classList.toggle('hidden');
+      eyeOffIcon.classList.toggle('hidden');
+    });
+
+    // Email validation
+    const emailInput = document.getElementById('email');
+    const form = document.getElementById('registerForm');
+    
+    const validDomains = [
+      'gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 
+      'icloud.com', 'live.com', 'msn.com', 'aol.com',
+      'protonmail.com', 'zoho.com', 'mail.com'
+    ];
+
+    form.addEventListener('submit', function(e) {
+      const email = emailInput.value.toLowerCase();
+      const domain = email.split('@')[1];
+      
+      if (domain && validDomains.includes(domain)) {
+        const confirmed = confirm(
+          `⚠️ Email Confirmation Required\n\n` +
+          `You are registering with: ${email}\n\n` +
+          `Please confirm this email is correct and accessible.\n` +
+          `You may need to verify this email address later.\n\n` +
+          `Click OK to proceed with registration.`
+        );
+        
+        if (!confirmed) {
+          e.preventDefault();
+          return false;
+        }
+      } else {
+        e.preventDefault();
+        alert(
+          `❌ Invalid Email Domain\n\n` +
+          `Please use a valid email from a recognized provider:\n` +
+          `• Gmail (gmail.com)\n` +
+          `• Yahoo (yahoo.com)\n` +
+          `• Outlook (outlook.com, hotmail.com)\n` +
+          `• iCloud (icloud.com)\n` +
+          `• Other major providers\n\n` +
+          `Your domain: ${domain || 'not detected'}`
+        );
+        emailInput.focus();
+        return false;
+      }
+    });
+  </script>
 {% endblock %}
