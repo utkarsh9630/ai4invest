@@ -441,8 +441,10 @@ def delete_profile(profile_id):
     flash(f'Profile "{prof.name}" has been deleted.', "success")
     return redirect(url_for("profiles"))
 
+# Initialize database tables - drop and recreate if needed
 with app.app_context():
-    db.create_all()
+    db.drop_all()  # Drop existing tables
+    db.create_all()  # Create fresh tables with correct schema
     print("Database tables ready!")
     
 if __name__ == "__main__":
