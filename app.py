@@ -30,10 +30,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db      = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-# Auto-create database tables on first run
-with app.app_context():
-    db.create_all()
-
 
 # ─── MODELS ───────────────────────────────────────────────────────────────────────
 class User(db.Model):
