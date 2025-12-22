@@ -1,6 +1,6 @@
 # AI4Invest - Financial Risk Profiling Platform
 
-🚀 **Live Application:** [https://ai4invest-latest.onrender.com](https://ai4invest-latest.onrender.com)
+ **Live Application:** [https://ai4invest-latest.onrender.com](https://ai4invest-latest.onrender.com)
 
 ## Overview
 
@@ -10,12 +10,12 @@ AI4Invest is an intelligent financial risk profiling platform that uses machine 
 
 ## Key Features
 
-- 🎯 **AI-Powered Risk Assessment** - ML-driven analysis of financial profiles
-- 📊 **Personalized Stock Recommendations** - Top 5 S&P 500 picks based on risk profile
-- 💰 **Investment Simulator** - Test investment scenarios with predicted returns
-- 📈 **Profile Management** - Save and compare multiple financial profiles
-- 🔒 **Secure Authentication** - User registration with encrypted password storage
-- 📱 **Responsive Design** - Works seamlessly on desktop and mobile devices
+-  **AI-Powered Risk Assessment** - ML-driven analysis of financial profiles
+-  **Personalized Stock Recommendations** - Top 5 S&P 500 picks based on risk profile
+-  **Investment Simulator** - Test investment scenarios with predicted returns
+-  **Profile Management** - Save and compare multiple financial profiles
+-  **Secure Authentication** - User registration with encrypted password storage
+-  **Responsive Design** - Works seamlessly on desktop and mobile devices
 
 ## Technology Stack
 
