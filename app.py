@@ -2,6 +2,7 @@ import os
 import io
 import json
 from datetime import datetime
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -21,10 +22,18 @@ app = Flask(__name__, template_folder="templates")
 app.jinja_env.globals['now'] = datetime.utcnow
 
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", os.urandom(24))
-db_url = os.getenv("DATABASE_URL", "sqlite:///app.db")
-if db_url.startswith("postgres://"):  # compatibility fix
-    db_url = db_url.replace("postgres://", "postgresql://", 1)
-app.config["SQLALCHEMY_DATABASE_URI"] = db_url
+
+# SQLite Configuration for Render
+if os.getenv("RENDER"):
+    # Running on Render - use persistent disk storage
+    data_dir = Path("/opt/render/project/src/data")
+    data_dir.mkdir(exist_ok=True)
+    db_path = data_dir / "app.db"
+else:
+    # Running locally - use current directory
+    db_path = Path("app.db")
+
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db      = SQLAlchemy(app)
@@ -441,11 +450,15 @@ def delete_profile(profile_id):
     flash(f'Profile "{prof.name}" has been deleted.', "success")
     return redirect(url_for("profiles"))
 
-# Initialize database tables - drop and recreate if needed
+
+# ─── DATABASE INITIALIZATION ──────────────────────────────────────────────────────
 with app.app_context():
-    db.drop_all()  # Drop existing tables
-    db.create_all()  # Create fresh tables with correct schema
-    print("Database tables ready!")
-    
+    try:
+        db.create_all()
+        print("✅ Database tables ready!")
+    except Exception as e:
+        print(f"⚠️ Database setup error: {e}")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
