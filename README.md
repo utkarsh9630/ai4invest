@@ -1,7 +1,5 @@
 # AI4Invest - Financial Risk Profiling Platform
 
- **Live Application:** [https://ai4invest-latest.onrender.com](https://ai4invest-latest.onrender.com)
-
 ## Overview
 
 AI4Invest is an intelligent financial risk profiling platform that uses machine learning to assess users' risk tolerance and provide personalized S&P 500 stock recommendations. The system analyzes 19 financial and demographic factors to classify users into risk categories and suggests tailored investment strategies.
