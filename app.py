@@ -23,15 +23,15 @@ app.jinja_env.globals['now'] = datetime.utcnow
 
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", os.urandom(24))
 
-# SQLite Configuration for Render
+# SQLite Configuration
 if os.getenv("RENDER"):
     # Running on Render - use persistent disk storage
     data_dir = Path("/opt/render/project/src/data")
     data_dir.mkdir(exist_ok=True)
     db_path = data_dir / "app.db"
 else:
-    # Running locally - use current directory
-    db_path = Path("app.db")
+    # Vercel serverless & local dev - /tmp is the only writable path on Vercel
+    db_path = Path("/tmp/app.db")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -164,16 +164,20 @@ NUMERIC_FIELDS = [
 
 
 # ─── ML ARTIFACTS & DATA ───────────────────────────────────────────────────────────
-risk_pipe = joblib.load("risk_pipeline.joblib")
-risk_le   = joblib.load("risk_label_encoder.joblib")
+# Use absolute paths so files resolve correctly regardless of working directory
+# (Vercel's serverless runtime does not guarantee cwd == project root)
+_ROOT = Path(__file__).parent
 
-picks_df = pd.read_csv("top_n_per_category.csv")
+risk_pipe = joblib.load(_ROOT / "risk_pipeline.joblib")
+risk_le   = joblib.load(_ROOT / "risk_label_encoder.joblib")
+
+picks_df = pd.read_csv(_ROOT / "top_n_per_category.csv")
 picks_df["bucket_str"] = risk_le.inverse_transform(picks_df["bucket"])
 
-sp = pd.read_csv("sp500_features.csv", index_col=0)
+sp = pd.read_csv(_ROOT / "sp500_features.csv", index_col=0)
 sp["vol30_log"] = np.log(sp["vol30"])
 X_ret_all    = sp.drop(columns=["ret","vol30"], errors="ignore")
-return_model = joblib.load("topreturn_model.joblib")
+return_model = joblib.load(_ROOT / "topreturn_model.joblib")
 pred_dict    = dict(zip(sp.index, return_model.predict(X_ret_all)))
 
 
