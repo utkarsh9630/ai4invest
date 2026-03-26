@@ -1,133 +1,232 @@
-# AI4Invest - Financial Risk Profiling Platform
+# TicketGuard — Ticket Resale Scam Triage
 
-## Live Demo: https://ai4invest.vercel.app/login
- 
-## Overview
+TicketGuard helps fans buying resale tickets under time pressure quickly assess **scam risk indicators** and follow **safer steps** — reducing losses, anxiety, and decision paralysis.
 
-AI4Invest is an intelligent financial risk profiling platform that uses machine learning to assess users' risk tolerance and provide personalized S&P 500 stock recommendations. The system analyzes 19 financial and demographic factors to classify users into risk categories and suggests tailored investment strategies.
+This is **not** a chatbot. It's an **action-first dashboard**: paste a listing/seller chat → get a **risk level + confidence**, **top reasons with evidence**, a **safer-step checklist**, and **copyable templates** (verification message + platform report + containment steps).
 
-**Tagline:** *Why retire so late? Join us and retire early with smart investments!*
+**Live:** [hack-ticket-resla-triage.vercel.app](https://hack-ticket-resla-triage.vercel.app)
 
-## Key Features
-
--  **AI-Powered Risk Assessment** - ML-driven analysis of financial profiles
--  **Personalized Stock Recommendations** - Top 5 S&P 500 picks based on risk profile
--  **Investment Simulator** - Test investment scenarios with predicted returns
--  **Profile Management** - Save and compare multiple financial profiles
--  **Secure Authentication** - User registration with encrypted password storage
--  **Responsive Design** - Works seamlessly on desktop and mobile devices
-
-## Technology Stack
-
-**Backend:**
-- Flask 3.1.2 - Web framework
-- PostgreSQL - Production database
-- SQLAlchemy - ORM and database migrations
-- Gunicorn - WSGI server
-
-**Machine Learning:**
-- scikit-learn 1.6.1 - Risk classification & return prediction
-- pandas 2.2.2 - Data processing
-- NumPy 1.26.4 - Numerical computations
-
-**Frontend:**
-- Tailwind CSS - Modern UI styling
-- Vanilla JavaScript - Interactive features
-
-## Project Structure
-```
-ai4invest/
-├── app.py                          # Main Flask application
-├── templates/                      # HTML templates
-│   ├── base.html                  # Base layout
-│   ├── login.html                 # Login page
-│   ├── register.html              # Registration page
-│   ├── form.html                  # Risk profiling form (paginated)
-│   ├── dashboard.html             # Stock recommendations dashboard
-│   ├── profiles.html              # Saved profiles management
-│   └── simulation.html            # Investment simulator
-├── static/
-│   └── globals.css                # Custom styling
-├── migrations/                     # Database migrations
-├── requirements.txt               # Python dependencies
-├── runtime.txt                    # Python version
-├── Procfile                       # Render deployment config
-├── Dockerfile                     # Docker configuration
-└── ML Models & Data:
-    ├── risk_pipeline.joblib       # Risk classification model
-    ├── risk_label_encoder.joblib  # Label encoder
-    ├── stock_classifier.joblib    # Stock clustering model
-    ├── topreturn_model.joblib     # Return prediction model
-    ├── top_n_per_category.csv     # Stock recommendations
-    └── sp500_features.csv         # S&P 500 features dataset
-```
-
-## Machine Learning Pipeline
-
-The application uses three integrated ML models:
-
-1. **Risk Profiler** (`risk_pipeline.joblib`) - Classifies users into Low/Medium/High risk categories based on 19 financial indicators
-2. **Stock Classifier** (`stock_classifier.joblib`) - K-means clustering of S&P 500 stocks by risk profile
-3. **Return Predictor** (`topreturn_model.joblib`) - Random Forest model for 90-day return forecasts
-
-## Local Development
-```bash
-# Clone repository
-git clone https://github.com/utkarsh9630/ai4invest.git
-cd ai4invest
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run application
-python app.py
-
-# Access at http://localhost:5000
-```
-
-## Deployment
-
-The application is deployed on Render.com with:
-- **Web Service:** Python 3.12, Gunicorn
-- **Database:** PostgreSQL (free tier - 90 days)
-- **Auto-deploy:** Enabled from main branch
-
-## Features in Detail
-
-### Risk Profiling Form
-- 19-question assessment across 5 pages
-- Categories: Demographics, Financial Situation, Outlook, Investments, Self-Assessment
-- Progress tracking and validation
-
-### Dashboard
-- Risk classification result (Low/Medium/High)
-- Top 5 personalized stock recommendations
-- Predicted returns and risk indicators
-- CSV export functionality
-
-### Investment Simulator
-- Test different investment amounts
-- Adjust time horizons (days)
-- View projected gains/losses
-- Compare scenarios
-
-## Contributing
-
-This is an academic project. Feedback and suggestions are welcome!
-
-## License
-
-MIT License - Educational purposes
-
-## Contact
-
-**Author:** Utkarsh Tripathi  
-**GitHub:** [@utkarsh9630](https://github.com/utkarsh9630)
+Built at the **NVIDIA + Vercel Hackathon** hosted at San Jose State University during NVIDIA GTC 2026.
 
 ---
 
-⚠️ **Disclaimer:** This is a demonstration application for educational purposes. Always consult with a qualified financial advisor before making investment decisions.
+## Screenshots
+
+### Triage dashboard (input + agent pipeline)
+![TicketGuard Triage](docs/screenshots/01-triage.png)
+
+### Results (risk decision + reasons + actions)
+![TicketGuard Results](docs/screenshots/02-results.png)
+
+### Results (templates + reasoning expanded)
+![TicketGuard Results Expanded](docs/screenshots/03-results-expanded.png)
+
+---
+
+## What makes it "agentic" (not just text generation)
+
+TicketGuard uses a **multi-agent Chain-of-Debate (CoD)** workflow:
+- Draft multiple candidate plans (Planner / Evidence / User Advocate)
+- Critique plans (Red-Team + Risk/Compliance)
+- Supervisor selects final response with **confidence** and a short rationale log
+- **Boundary Manager** behavior: for high risk, escalates to "Stop & Verify" steps
+
+---
+
+## Tech Stack
+
+- **Frontend:** Next.js 15 (App Router) + TypeScript + Tailwind + shadcn/ui
+- **Backend:** Next.js API Route `POST /api/triage` (Vercel Serverless)
+- **LLM:** NVIDIA NIM endpoint — Nemotron (`nvidia/nemotron-3-super-120b-a12b`)
+- **Grounding:** Static guidance corpus (FTC, BBB, Ticketmaster) bundled at build time as TypeScript constants
+- **Deployment:** Vercel
+
+---
+
+## Architecture
+
+```
+User → Next.js UI (Vercel) → POST /api/triage (Serverless)
+    → Static Guidance Context → CoD Orchestrator
+    → LLM via NVIDIA NIM (Nemotron)
+    → JSON → UI (Risk + Reasons + Actions + Templates + CoD log)
+```
+
+---
+
+## Project Structure
+
+```
+ticketguard/
+├── src/
+│   ├── app/
+│   │   ├── api/triage/route.ts       # API route — calls Nemotron, returns JSON
+│   │   ├── page.tsx                  # Main UI
+│   │   ├── layout.tsx
+│   │   └── globals.css
+│   └── lib/
+│       ├── data/
+│       │   ├── systemPrompt.ts       # System prompt (bundled static string)
+│       │   └── guidanceContext.ts    # All guidance docs (bundled static string)
+│       ├── llm/
+│       │   └── nimClient.ts          # NVIDIA NIM API client
+│       ├── triage/
+│       │   ├── fallback.ts           # Graceful fallback if LLM fails
+│       │   ├── normalize.ts          # Input normalization
+│       │   ├── validate.ts           # Response validation
+│       │   └── smoke.ts
+│       └── types/
+│           └── triage.ts             # TypeScript types
+├── data/guidance/                    # Source guidance .md files (for reference)
+├── prompts/prompt.txt                # Source system prompt (for reference)
+├── next.config.ts
+├── vercel.json
+└── package.json
+```
+
+---
+
+## What was changed for Vercel compatibility
+
+| File | Change | Reason |
+|---|---|---|
+| `src/lib/llm/nimClient.ts` | Removed `fs.readFile` / `readdir` for prompt and guidance files | Vercel serverless functions cannot read arbitrary files at runtime — the filesystem is frozen |
+| `src/lib/data/systemPrompt.ts` | **New file** — system prompt exported as a TypeScript string constant | Replaces runtime `fs.readFile("prompts/prompt.txt")` with a build-time import |
+| `src/lib/data/guidanceContext.ts` | **New file** — all 4 guidance `.md` files combined as a TypeScript string constant | Replaces runtime `fs.readdir("data/guidance/")` with a build-time import |
+| `package.json` | `next` bumped `15.2.2 → 15.2.6`, `react` / `react-dom` bumped `19.0.0 → 19.0.3` | **Security fix:** CVE-2025-66478 (CVSS 10.0) — RCE vulnerability in React Server Components affecting all Next.js 15.x builds below 15.2.6 |
+
+---
+
+## Security
+
+This project was updated to patch **CVE-2025-66478** — a critical (CVSS 10.0) Remote Code Execution vulnerability in React Server Components affecting Next.js 15.0–15.2.5.
+
+**Patched versions in use:**
+- `next`: 15.2.6
+- `react` / `react-dom`: 19.0.3
+
+---
+
+## Setup (local)
+
+### 1. Install
+
+```bash
+# Node 18+ required (20+ recommended)
+npm install
+```
+
+### 2. Environment variables
+
+Create `.env.local`:
+
+```bash
+NIM_BASE_URL=https://integrate.api.nvidia.com/v1
+NIM_API_KEY=your_nvidia_nim_api_key
+NIM_MODEL=nvidia/nemotron-3-super-120b-a12b
+NIM_TIMEOUT_MS=20000
+```
+
+### 3. Run
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
+---
+
+## Deployment to Vercel
+
+1. **Push to GitHub:**
+```bash
+git add .
+git commit -m "Initial commit"
+git push origin main
+```
+
+2. **Import to Vercel:**
+- Go to [vercel.com](https://vercel.com) → **Add New Project** → import your repo
+- Vercel auto-detects Next.js — no build config needed
+
+3. **Add environment variables** in Vercel → Settings → Environment Variables:
+
+| Key | Value |
+|---|---|
+| `NIM_API_KEY` | Your NVIDIA NIM API key |
+| `NIM_BASE_URL` | `https://integrate.api.nvidia.com/v1` |
+| `NIM_MODEL` | `nvidia/nemotron-3-super-120b-a12b` |
+| `NIM_TIMEOUT_MS` | `20000` |
+
+4. **Deploy** — live in ~60 seconds. Redeploys automatically on every `git push`.
+
+---
+
+## API Contract
+
+**POST** `/api/triage`
+
+Request:
+```json
+{
+  "text": "string",
+  "platform": "string",
+  "payment_method": "string",
+  "off_platform": true,
+  "urgency": true
+}
+```
+
+Response:
+```json
+{
+  "risk_level": "LOW|MEDIUM|HIGH",
+  "confidence": 0.82,
+  "banner": { "type": "STOP_VERIFY|VERIFY_FIRST|PROCEED_SAFER", "message": "string" },
+  "reasons": [
+    { "title": "string", "evidence_snippet": "string", "guidance_links": ["string"], "notes": "string" }
+  ],
+  "action_steps": ["string"],
+  "templates": {
+    "verify_message": "string",
+    "platform_report": "string",
+    "containment_steps": "string"
+  },
+  "cod_log": { "roundA": "string", "roundB": "string", "roundC": "string", "supervisor": "string" }
+}
+```
+
+---
+
+## Safety & Guardrails
+
+- **Non-accusatory language:** "risk indicators suggest…" not "this is a scam"
+- **No enabling wrongdoing:** no instructions for bypassing ticket limits or fraud
+- **Victim path:** if the user already paid, containment steps + reporting guidance are included
+- **Disclaimer:** "Educational guidance only; cannot guarantee authenticity."
+
+---
+
+## Demo Mode
+
+Two preset examples are built into the UI:
+- **Obvious scam** — off-platform + irreversible payment + urgency
+- **Borderline legit** — in-platform transfer + safer payment method
+
+---
+
+## Academic Context
+
+Built at the NVIDIA + Vercel Hackathon hosted at San Jose State University during NVIDIA GTC 2026, as part of the Applied Data Intelligence MS program.
+
+---
+
+## Contact
+
+**Utkarsh Tripathi**
+- GitHub: [@utkarsh9630](https://github.com/utkarsh9630)
+- LinkedIn: [Utkarsh Tripathi](https://www.linkedin.com/in/tripathiutkarsh46/)
+- Email: tripathiutkarsh46@gmail.com
+
+MS Student — Applied Data Intelligence, San Jose State University
